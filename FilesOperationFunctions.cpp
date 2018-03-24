@@ -1,6 +1,7 @@
 #include "FilesOperationFunctions.h"
 
-void ShowFileWithoutWhiteChars_CHAR(string FilePath)
+
+void FileOperation::ShowFileWithoutWhiteChars_CHAR(string FilePath)
 {
 	ifstream File(FilePath);
 	char FileChar;
@@ -23,7 +24,7 @@ void ShowFileWithoutWhiteChars_CHAR(string FilePath)
 	}
 }
 
-void ShowFileWithoutWhiteChars_WCHAR(string FilePath)
+void FileOperation::ShowFileWithoutWhiteChars_WCHAR(string FilePath)
 {
 	wifstream File(FilePath);
 	wchar_t FileChar;
@@ -46,7 +47,7 @@ void ShowFileWithoutWhiteChars_WCHAR(string FilePath)
 	}
 }
 
-int GetMinimumDigitFromFile(string FilePath)
+int FileOperation::GetMinimumDigitFromFile(string FilePath)
 {
 	ifstream File(FilePath);
 	vector<int> Numbers;
@@ -83,3 +84,33 @@ int GetMinimumDigitFromFile(string FilePath)
 	return MinimalNumber;
 }
 
+void FileOperation::CopyFile(fstream& FileRead, fstream& FileWrite)
+{
+	string line;
+
+	if (FileRead.is_open() && FileWrite.is_open()) {
+		while (getline(FileRead, line))
+			FileWrite << line << endl;
+	}
+	else {
+		cout << "ERROR IN LOADING FILE" << endl;
+	}
+}
+
+void FileOperation::CopyArrayToFile(string FilePath, int** Array, const int ArraySizeA, const int ArraySizeB)
+{
+	fstream File(FilePath, ios::out | ios::binary);
+
+	if (File.is_open()) {
+		for (int i = 0;i < ArraySizeA;i++) {
+			for (int j = 0;j < ArraySizeA;j++) {
+				File.write(reinterpret_cast<const char*>(&Array[i][j]), sizeof(int));
+			}
+			File << "\n";
+		}
+		File.close();
+	}
+	else {
+		cout << "ERROR IN LOADING FILE" << endl;
+	}
+}
