@@ -103,17 +103,19 @@ bool FileOperation::CopyFile(fstream& FileRead, fstream& FileWrite)
 	}
 }
 
-bool FileOperation::CopyArrayToFile(string FilePath, int** Array, const int ArraySizeA, const int ArraySizeB)
+bool FileOperation::CopyArrayToFile(string FilePath, int** Array, int ArraySizeA, int ArraySizeB)
 {
 	fstream File(FilePath, ios::out | ios::binary);
 
 	if (File.is_open()) {
-		
 		for (int i = 0;i < ArraySizeA;i++) {
 			for (int j = 0;j < ArraySizeB;j++) {
 				File.write(reinterpret_cast<char*>(&Array[i][j]), sizeof(int));
 			}
 		}
+		File.write(reinterpret_cast<char*>(&ArraySizeA), sizeof(int));
+		File.write(reinterpret_cast<char*>(&ArraySizeB), sizeof(int));
+
 		File.close();
 		return true;
 	}
@@ -130,7 +132,7 @@ bool FileOperation::loadArray(string FilePath, int** Array, const int ArraySizeA
 		return false;
 	else {
 
-		for (int i = 0;i < ArraySizeA;i++) {
+		for (int i = 0;i < ArraySizeA+2;i++) {
 			for (int j = 0;j < ArraySizeB;j++) {
 				File.read(reinterpret_cast<char*>(&Array[i][j]), sizeof(int));
 			}

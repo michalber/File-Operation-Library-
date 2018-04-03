@@ -35,12 +35,12 @@ namespace FileOperation {
 	Funkcja, która dostaje jako argumeny deskryptory dwóch plików tekstowych (plik do odczytu i zapisu)
 	i przepisuje zawartoœæ pierwszego pliku do drugiego
 	*/
-	bool CopyArrayToFile(string FilePath, int** Array, const int ArraySizeA, const int ArraySizeB);
+	bool CopyArrayToFile(string FilePath, int** Array,  int ArraySizeA,  int ArraySizeB);
 	/*
 	Funkcja, która dostaje jako argumeny œcie¿kê dostêpu do pliku tekstowego, dwuwymiarow¹ tablice tablic
-	i rozmiary tej tablicy i zapisuje binarnie zawartoœæ tablicy do pliku 
+	i rozmiary tej tablicy i zapisuje binarnie zawartoœæ tablicy do pliku oraz jej wymiary
 	*/
-	bool loadArray(string FilePath, int ** Array, const int ArraySizeA, const int ArraySizeB);
+	bool loadArray(string FilePath, int ** Array,  int ArraySizeA,  int ArraySizeB);
 	/*
 	Funkcja sprawdzaj¹ca poprawnoœæ dzialania fuknkcji CopyArrayToFile. Zapisuje wartoœci odczytane
 	z pliku do tablicy Array. (aby sprawdzic poprawne dzialanie trzeba potem ta tablice wyswietlic
