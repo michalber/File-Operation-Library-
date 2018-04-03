@@ -1,7 +1,7 @@
 #include "FilesOperationFunctions.h"
 
 
-void FileOperation::ShowFileWithoutWhiteChars_CHAR(string FilePath)
+bool FileOperation::ShowFileWithoutWhiteChars_CHAR(string FilePath)
 {
 	ifstream File(FilePath);
 	char FileChar;
@@ -18,13 +18,15 @@ void FileOperation::ShowFileWithoutWhiteChars_CHAR(string FilePath)
 				cout << FileChar;
 		}
 		File.close();
+		return true;
 	}
 	else {
 		cout << "ERROR IN LOADING FILE" << endl;
+		return false;
 	}
 }
 
-void FileOperation::ShowFileWithoutWhiteChars_WCHAR(string FilePath)
+bool FileOperation::ShowFileWithoutWhiteChars_WCHAR(string FilePath)
 {
 	wifstream File(FilePath);
 	wchar_t FileChar;
@@ -41,9 +43,11 @@ void FileOperation::ShowFileWithoutWhiteChars_WCHAR(string FilePath)
 				cout << FileChar;
 		}
 		File.close();
+		return true;
 	}
 	else {
 		cout << "ERROR IN LOADING FILE" << endl;
+		return false;
 	}
 }
 
@@ -84,33 +88,54 @@ int FileOperation::GetMinimumDigitFromFile(string FilePath)
 	return MinimalNumber;
 }
 
-void FileOperation::CopyFile(fstream& FileRead, fstream& FileWrite)
+bool FileOperation::CopyFile(fstream& FileRead, fstream& FileWrite)
 {
 	string line;
 
 	if (FileRead.is_open() && FileWrite.is_open()) {
 		while (getline(FileRead, line))
 			FileWrite << line << endl;
+		return true;
 	}
 	else {
 		cout << "ERROR IN LOADING FILE" << endl;
+		return false;
 	}
 }
 
-void FileOperation::CopyArrayToFile(string FilePath, int** Array, const int ArraySizeA, const int ArraySizeB)
+bool FileOperation::CopyArrayToFile(string FilePath, int** Array, const int ArraySizeA, const int ArraySizeB)
 {
 	fstream File(FilePath, ios::out | ios::binary);
 
 	if (File.is_open()) {
+		
 		for (int i = 0;i < ArraySizeA;i++) {
 			for (int j = 0;j < ArraySizeA;j++) {
-				File.write(reinterpret_cast<const char*>(&Array[i][j]), sizeof(int));
+				File.write(reinterpret_cast<char*>(&Array[i][j]), sizeof(int));
 			}
-			File << "\n";
 		}
 		File.close();
+		return true;
 	}
 	else {
 		cout << "ERROR IN LOADING FILE" << endl;
+		return false;
 	}
+}
+
+bool FileOperation::loadArray(string FilePath, int** Array, const int ArraySizeA, const int ArraySizeB)
+{
+	std::ifstream File(FilePath, std::ios::binary | std::ios::in);
+	if (!File.is_open())
+		return false;
+	else {
+
+		for (int i = 0;i < ArraySizeA;i++) {
+			for (int j = 0;j < ArraySizeA;j++) {
+				File.read(reinterpret_cast<char*>(&Array[i][j]), sizeof(int));
+			}
+		}
+		File.close();
+	}
+	return true;
 }
