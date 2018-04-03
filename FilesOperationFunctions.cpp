@@ -110,7 +110,7 @@ bool FileOperation::CopyArrayToFile(string FilePath, int** Array, const int Arra
 	if (File.is_open()) {
 		
 		for (int i = 0;i < ArraySizeA;i++) {
-			for (int j = 0;j < ArraySizeA;j++) {
+			for (int j = 0;j < ArraySizeB;j++) {
 				File.write(reinterpret_cast<char*>(&Array[i][j]), sizeof(int));
 			}
 		}
@@ -131,7 +131,7 @@ bool FileOperation::loadArray(string FilePath, int** Array, const int ArraySizeA
 	else {
 
 		for (int i = 0;i < ArraySizeA;i++) {
-			for (int j = 0;j < ArraySizeA;j++) {
+			for (int j = 0;j < ArraySizeB;j++) {
 				File.read(reinterpret_cast<char*>(&Array[i][j]), sizeof(int));
 			}
 		}
