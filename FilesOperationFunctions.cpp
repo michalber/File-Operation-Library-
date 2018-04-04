@@ -40,7 +40,7 @@ bool FileOperation::ShowFileWithoutWhiteChars_WCHAR(string FilePath)
 				continue; //nic nie rób
 			}
 			else
-				cout << FileChar;
+				wcout << FileChar;
 		}
 		File.close();
 		return true;
